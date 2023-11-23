@@ -4,6 +4,9 @@
  */
 package com.mycompany.mensajes_app;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 /**
  *
  * @author Cristian
@@ -11,7 +14,27 @@ package com.mycompany.mensajes_app;
 public class mensajesDAO {
     
     public static void crearMensajeDB(Mensajes mensaje){
+        Conexion db_connect = new Conexion();
         
+        try(Connection conexion = db_connect.get_connection()){
+            
+            PreparedStatement ps = null;
+            
+            try{
+                String querry = "INSERT INTO twitter.mensajes (mensaje, autor_mensaje, fecha_mensaje)VALUES(?,?, CURRENT_TIMESTAMP())";
+                ps = conexion.prepareStatement(querry);
+                ps.setString(1, mensaje.getMensaje());
+                ps.setString(2, mensaje.getAutor_mensaje());
+                ps.executeUpdate();
+                System.out.println("El mensahe ha sido creado correctamente!");
+                        
+            }catch(SQLException ex){
+                System.out.println(ex);
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e);
+        }
     }
     
     public static void leerMensaje (){

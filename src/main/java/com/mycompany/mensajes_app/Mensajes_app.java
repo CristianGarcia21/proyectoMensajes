@@ -33,6 +33,23 @@ public class Mensajes_app {
             
             opcion = sc.nextInt();
             
+            switch(opcion){
+                case 1:
+                    mensajesService.crearMensaje();
+                    break;
+                case 2:
+                    mensajesService.listarMensajes();
+                    break;
+                case 3:
+                    mensajesService.editarMensaje();
+                    break;
+                case 4:
+                    mensajesService.borrarMensaje();
+                    break;
+                default:
+                    break;
+            }
+            
         }while(opcion !=5);
         
         
