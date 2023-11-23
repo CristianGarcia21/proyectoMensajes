@@ -22,9 +22,7 @@ public class Conexion {
         try{
             
             conection = DriverManager.getConnection("jdbc:mysql://localhost:3306/twitter?serverTimezone=UTC", "root" , "12345" );
-            if (conection != null){
-                System.out.println("Conexion Exitosa!");
-            }
+            
         }catch(SQLException e ){
             System.out.println(e);
         }
