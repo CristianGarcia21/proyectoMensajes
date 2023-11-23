@@ -6,6 +6,7 @@ package com.mycompany.mensajes_app;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 /**
  *
@@ -39,6 +40,31 @@ public class mensajesDAO {
     
     public static void leerMensaje (){
         
+        Conexion db_connect = new Conexion();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try(Connection conexion = db_connect.get_connection()){
+            
+        String querry = "SELECT * FROM mensajes";
+            
+        ps = conexion.prepareStatement(querry);
+        rs = ps.executeQuery();
+        
+        while(rs.next()){
+            System.out.println("----------------------------------------------------");
+            System.out.println("ID: "+rs.getInt("id_mensaje"));
+            System.out.println("Mensaje: "+rs.getString("mensaje"));
+            System.out.println("Autor: "+ rs.getString("autor_mensaje"));
+            System.out.println("Fecha: "+ rs.getString("fecha_mensaje"));
+            System.out.println("----------------------------------------------------");
+        }
+            
+        }catch(SQLException e){
+            System.out.println("");
+            System.out.println("No se pudo recuperar los mensajes!!");
+            System.out.println(e);
+        }
     }
     
     public static void borrarMensaje(int id_mensaje){
